@@ -179,14 +179,14 @@ class _HomePageState extends State<HomePage> {
                     },
                   ),
                   _cardmenu(
-                    title: "Reports",
+                    title: "Reports           ",
                     asset: "assets/comment.png",
                     color: const Color.fromARGB(255, 109, 192, 192),
                     onTap: () {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => LabReport(),
+                          builder: (context) => const LabReport(),
                         ),
                       );
                     },
@@ -202,11 +202,11 @@ class _HomePageState extends State<HomePage> {
               children: [
                 Text(
                   "All Doctors",
-                  style: GoogleFonts.abel(fontSize: 25.sp),
+                  style: GoogleFonts.abel(fontSize: 24.sp),
                 ),
                 Image.asset(
                   'assets/medical-team.png',
-                  scale: 5,
+                  scale: 4,
                 )
               ],
             ),
@@ -230,11 +230,12 @@ class _HomePageState extends State<HomePage> {
                       aspectRatio: 16 / 9,
                       autoPlayCurve: Curves.fastOutSlowIn,
                       enableInfiniteScroll: true,
-                      autoPlayAnimationDuration: Duration(milliseconds: 800),
+                      autoPlayAnimationDuration: const Duration(milliseconds: 800),
                       initialPage: 0,
                     ),
                     items: doctorData.map((item) {
                       return Stack(
+                        
                         children: [
                           // Image
                           Container(

@@ -121,6 +121,9 @@ class _SlotspageState extends State<Slotspage> with TickerProviderStateMixin {
     final authProvider = Provider.of<AuthProvider>(context);
     String monthName =
         DateFormat.MMMM().format(DateTime(0, _selectedDay.month));
+    final screenHeight = MediaQuery.of(context).size.height;
+    //final screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       appBar: AppBar(
         elevation: 5,
@@ -169,6 +172,7 @@ class _SlotspageState extends State<Slotspage> with TickerProviderStateMixin {
             Text(
               'Booking to\t${authProvider.docname}',
               style: GoogleFonts.afacad(
+                fontSize: screenHeight * 0.02,
                 color: white,
                 textStyle: const TextStyle(fontWeight: FontWeight.bold),
               ),
@@ -230,10 +234,10 @@ class _SlotspageState extends State<Slotspage> with TickerProviderStateMixin {
                   SizedBox(
                     child: Row(
                       children: [
-                        const Text(
+                         Text(
                           'Schedules',
                           style: TextStyle(
-                              fontSize: 18,
+                              fontSize: screenHeight * 0.015,
                               fontWeight: FontWeight.bold,
                               color: primaryPurple),
                         ),
@@ -247,8 +251,8 @@ class _SlotspageState extends State<Slotspage> with TickerProviderStateMixin {
                   ),
                   Text(
                     "$monthName ${_selectedDay.year.toString()}",
-                    style: const TextStyle(
-                        fontSize: 17,
+                    style:  TextStyle(
+                        fontSize: screenHeight * 0.015,
                         fontWeight: FontWeight.bold,
                         color: primaryPurple),
                   )
@@ -264,7 +268,7 @@ class _SlotspageState extends State<Slotspage> with TickerProviderStateMixin {
                   ),
                   Expanded(
                     child: SizedBox(
-                      height: 50.h,
+                      height: 50.w,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount: days.length,
@@ -341,11 +345,13 @@ class _SlotspageState extends State<Slotspage> with TickerProviderStateMixin {
                                           color: isSelected
                                               ? Colors.white
                                               : primaryPurple,
+                                              fontSize: screenHeight * 0.015,
                                           fontWeight: FontWeight.bold),
                                     ),
                                     Text(
                                       DateFormat('dd').format(day),
                                       style: TextStyle(
+                                        fontSize:screenHeight * 0.015,
                                           color: isSelected
                                               ? Colors.white
                                               : primaryPurple,
@@ -367,7 +373,7 @@ class _SlotspageState extends State<Slotspage> with TickerProviderStateMixin {
                 ],
               ),
               SizedBox(height: 15.h),
-              const Row(
+               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
@@ -375,15 +381,15 @@ class _SlotspageState extends State<Slotspage> with TickerProviderStateMixin {
                       Text(
                         'Choose Times',
                         style: TextStyle(
-                            fontSize: 18,
+                            fontSize: screenHeight * 0.015,
                             fontWeight: FontWeight.bold,
                             color: primaryPurple),
                       ),
-                      Icon(Icons.align_vertical_center_rounded,
-                          color: primaryPurple)
+                       Icon(Icons.align_vertical_center_rounded,
+                          color: primaryPurple,size: 15.w,)
                     ],
                   ),
-                  Icon(Icons.alarm, color: primaryPurple)
+                  Icon(Icons.alarm,size: 15.w, color: primaryPurple)
                 ],
               ),
               SizedBox(height: 10.h),
@@ -420,13 +426,13 @@ class _SlotspageState extends State<Slotspage> with TickerProviderStateMixin {
                   indicatorSize: TabBarIndicatorSize.tab,
                   labelColor: whitelightPurple,
                   unselectedLabelColor: whitelightPurple,
-                  tabs: const [
+                  tabs:  [
                     Tab(
                       child: Text(
                         "Morning",
                         style: TextStyle(
                             color: white,
-                            fontSize: 13,
+                            fontSize: screenHeight * 0.015,
                             fontWeight: FontWeight.bold),
                       ),
                     ),
@@ -435,7 +441,7 @@ class _SlotspageState extends State<Slotspage> with TickerProviderStateMixin {
                         "Afternoon",
                         style: TextStyle(
                             color: white,
-                            fontSize: 13,
+                            fontSize: screenHeight * 0.015,
                             fontWeight: FontWeight.bold),
                       ),
                     ),
@@ -444,7 +450,7 @@ class _SlotspageState extends State<Slotspage> with TickerProviderStateMixin {
                         "Evening",
                         style: TextStyle(
                             color: white,
-                            fontSize: 13,
+                            fontSize: screenHeight * 0.015,
                             fontWeight: FontWeight.bold),
                       ),
                     ),
@@ -510,6 +516,7 @@ class _SlotspageState extends State<Slotspage> with TickerProviderStateMixin {
   Widget buildTimeSlots(String period, List<String> slots) {
     final provider = Provider.of<TimeslotProvider>(context);
     final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight= MediaQuery.of(context).size.height;
     int crossAxisCount;
     if (screenWidth < 600) {
       crossAxisCount = 3;
@@ -529,8 +536,8 @@ class _SlotspageState extends State<Slotspage> with TickerProviderStateMixin {
             ),
             Text(
               'No slots available for $period',
-              style: const TextStyle(
-                  fontSize: 20,
+              style:  TextStyle(
+                  fontSize: screenHeight * 0.015,
                   fontWeight: FontWeight.bold,
                   color: secondaryPurple),
             ),
@@ -588,7 +595,7 @@ class _SlotspageState extends State<Slotspage> with TickerProviderStateMixin {
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 14,
+                              fontSize: screenHeight * 0.015,
                               color: isLocked
                                   ? Colors.black
                                   : selectedSlotTime == slot

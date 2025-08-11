@@ -169,14 +169,15 @@ class _AppoinmentState extends State<Appoinment>
             Row(
               children: [
                 IconButton(
-                  icon: const Icon(Icons.close, color: Colors.white),
+                  icon:  Icon(Icons.close, color: Colors.white, size: 15.w,),
                   onPressed: () {
                     Navigator.pushReplacementNamed(
                         context, AppRoutes.appointments);
                   },
                 ),
                 IconButton(
-                  icon: const Icon(Icons.calendar_month_outlined,
+                  icon:  Icon(Icons.calendar_month_outlined,
+                  size: 15.w,
                       color: Colors.white),
                   onPressed: () => _selectDate(context),
                 ),
@@ -194,10 +195,11 @@ class _AppoinmentState extends State<Appoinment>
               children: [
                 Column(
                   children: [
-                    const CircleAvatar(
-                      radius: 28,
+                     CircleAvatar(
+                      radius: 18.w,
                       backgroundColor: secondarylightPurple,
-                      child: Icon(
+                      child:  Icon(
+                        size: 15.w,
                         Icons.calendar_month,
                         color: Colors.white,
                       ),
@@ -225,7 +227,7 @@ class _AppoinmentState extends State<Appoinment>
                           );
                         },
                         child: CircleAvatar(
-                          radius: 28,
+                           radius: 18.w,
                           backgroundColor: secondaryPurple,
                           child: Image.asset(
                             "assets/writing.png",
@@ -237,10 +239,10 @@ class _AppoinmentState extends State<Appoinment>
                       SizedBox(
                         height: screenHeight * 0.01,
                       ),
-                      const Text("Treatments",
+                       Text("Treatments",
                           style: TextStyle(
                               color: secondaryPurple,
-                              fontSize: 12,
+                              fontSize: screenHeight * 0.015,
                               fontWeight: FontWeight.bold))
                     ],
                   ),
@@ -254,7 +256,7 @@ class _AppoinmentState extends State<Appoinment>
                               context, AppRoutes.labReport);
                         },
                         child: CircleAvatar(
-                          radius: 28,
+                           radius: 18.w,
                           backgroundColor: secondaryPurple,
                           child: Image.asset(
                             "assets/comment.png",
@@ -282,10 +284,11 @@ class _AppoinmentState extends State<Appoinment>
                           Navigator.pushReplacementNamed(
                               context, AppRoutes.billingData);
                         },
-                        child: const CircleAvatar(
-                          radius: 28,
+                        child:  CircleAvatar(
+                           radius: 18.w,
                           backgroundColor: secondaryPurple,
                           child: Icon(
+                            size: 15.w,
                             Icons.payment,
                             color: Colors.white,
                           ),

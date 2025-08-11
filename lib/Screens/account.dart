@@ -59,6 +59,8 @@ class _AccountPageState extends State<AccountPage> {
     // var userId = storage.getItem('UserId');
 
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final screenHeight = MediaQuery.of(context).size.height;
+    //final screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
       appBar: PreferredSize(
@@ -148,9 +150,10 @@ class _AccountPageState extends State<AccountPage> {
                                       builder: (context) => Appoinment()));
                             },
                             child: CircleAvatar(
-                              radius: 28,
+                              radius: 18.w,
                               backgroundColor: white,
                               child: Icon(
+                                size: 15.w,
                                 Icons.calendar_month,
                                 color: secondaryPurple,
                               ),
@@ -162,7 +165,7 @@ class _AccountPageState extends State<AccountPage> {
                           Text("Appointments",
                               style: TextStyle(
                                   color: white,
-                                  fontSize: 12,
+                                  fontSize: screenHeight * 0.015,
                                   fontWeight: FontWeight.bold))
                         ],
                       ),
@@ -178,7 +181,7 @@ class _AccountPageState extends State<AccountPage> {
                               );
                             },
                             child: CircleAvatar(
-                              radius: 28,
+                              radius: 18.w,
                               backgroundColor: white,
                               child: Image.asset(
                                 "assets/writing.png",
@@ -193,7 +196,7 @@ class _AccountPageState extends State<AccountPage> {
                           Text("Treatments",
                               style: TextStyle(
                                   color: white,
-                                  fontSize: 12,
+                                   fontSize: screenHeight * 0.015,
                                   fontWeight: FontWeight.bold))
                         ],
                       ),
@@ -209,7 +212,7 @@ class _AccountPageState extends State<AccountPage> {
                         child: Column(
                           children: [
                             CircleAvatar(
-                              radius: 28,
+                              radius: 18.w,
                               backgroundColor: white,
                               child: Image.asset(
                                 "assets/comment.png",
@@ -223,7 +226,7 @@ class _AccountPageState extends State<AccountPage> {
                             Text("Reports",
                                 style: TextStyle(
                                     color: white,
-                                    fontSize: 12,
+                                     fontSize: screenHeight * 0.015,
                                     fontWeight: FontWeight.bold))
                           ],
                         ),
@@ -240,7 +243,7 @@ class _AccountPageState extends State<AccountPage> {
                               );
                             },
                             child: CircleAvatar(
-                              radius: 28,
+                              radius: 18.w,
                               backgroundColor: white,
                               child: Icon(
                                 Icons.payment,
@@ -255,7 +258,7 @@ class _AccountPageState extends State<AccountPage> {
                             "Billing History",
                             style: TextStyle(
                                 color: white,
-                                fontSize: 12,
+                                 fontSize: screenHeight * 0.015,
                                 fontWeight: FontWeight.bold),
                           )
                         ],
@@ -300,6 +303,7 @@ class _AccountPageState extends State<AccountPage> {
   }
 
   void showLogOutAccountDialog(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -308,7 +312,7 @@ class _AccountPageState extends State<AccountPage> {
           title: Text(
             'Logout Account',
             style:
-                GoogleFonts.montserrat(textStyle: const TextStyle(color: red)),
+                GoogleFonts.montserrat(textStyle:  TextStyle(color: red,fontSize:screenHeight * 0.015,)),
           ),
           content: Text(
             'Are you sure you want to Logout your account? This action cannot be undone.',
@@ -344,6 +348,7 @@ class _AccountPageState extends State<AccountPage> {
   }
 
   void _handleTap(BuildContext context, String title) {
+    
     switch (title) {
       case 'View Profile':
         _showAccountDialog(context);
@@ -369,42 +374,48 @@ class _AccountPageState extends State<AccountPage> {
     }
   }
 
-  Widget _buildAnimatedCard(BuildContext context,
-      {required String title,
-      required Icon icon,
-      required VoidCallback onTap}) {
-    return PlayAnimationBuilder<double>(
-      duration: Duration(milliseconds: 500),
-      delay: Duration(milliseconds: 100),
-      tween: Tween(begin: 0.0, end: 1.0),
-      builder: (context, value, child) {
-        return Transform.translate(
-          offset: Offset(10, 100 * (1 - value)),
-          child: Transform.scale(
-            scale: 1 + (value * 0.1),
-            child: Opacity(
-              opacity: value,
-              child: Card(
-                elevation: 4,
-                margin: EdgeInsets.symmetric(vertical: 8, horizontal: 20),
-                child: ListTile(
-                  trailing: icon,
-
-                  title: Text(
-                    title,
-                    style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: primaryPurple),
+  Widget _buildAnimatedCard(
+    
+  BuildContext context, {
+  required String title,
+  required Icon icon,
+  required VoidCallback onTap,
+}) {
+  return PlayAnimationBuilder<double>(
+    duration: Duration(milliseconds: 500),
+    delay: Duration(milliseconds: 100),
+    tween: Tween(begin: 0.0, end: 1.0),
+    builder: (context, value, child) {
+      return Transform.translate(
+        offset: Offset(10.w, 100.h * (1 - value)), // Responsive offset
+        child: Transform.scale(
+          scale: 1 + (value * 0.1),
+          child: Opacity(
+            opacity: value,
+            child: Card(
+              elevation: 4,
+              margin: EdgeInsets.symmetric(
+                vertical: 8.h,
+                horizontal: 20.w,
+              ), // Responsive margins
+              child: ListTile(
+                trailing: icon,
+                title: Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: MediaQuery.of(context).size.height*0.015, // Responsive font size
+                    fontWeight: FontWeight.bold,
+                    color: primaryPurple,
                   ),
-                  onTap: onTap, // Handle tap action
                 ),
+                onTap: onTap,
               ),
             ),
           ),
-        );
-      },
-    );
+        ),
+      );
+    },
+  );
   }
 
   void _showAccountDialog(BuildContext context) {

@@ -157,10 +157,11 @@ class _TransactionState extends State<Transaction> {
                             ),
                           );
                         },
-                        child: const CircleAvatar(
-                          radius: 28,
+                        child:  CircleAvatar(
+                          radius: 18.w,
                           backgroundColor: secondaryPurple,
                           child: Icon(
+                            size: 15.w,
                             Icons.calendar_month,
                             color: Colors.white,
                           ),
@@ -189,7 +190,7 @@ class _TransactionState extends State<Transaction> {
                             );
                           },
                           child: CircleAvatar(
-                            radius: 28,
+                            radius: 18.w,
                             backgroundColor: secondaryPurple,
                             child: Image.asset(
                               "assets/writing.png",
@@ -222,7 +223,7 @@ class _TransactionState extends State<Transaction> {
                             );
                           },
                           child: CircleAvatar(
-                            radius: 28,
+                            radius: 18.w,
                             backgroundColor: secondaryPurple,
                             child: Image.asset(
                               "assets/comment.png",
@@ -245,10 +246,11 @@ class _TransactionState extends State<Transaction> {
                   SizedBox(
                     child: Column(
                       children: [
-                        const CircleAvatar(
-                          radius: 28,
+                         CircleAvatar(
+                          radius: 18.w,
                           backgroundColor: secondarylightPurple,
                           child: Icon(
+                            size: 15.w,
                             Icons.payment,
                             color: white,
                           ),

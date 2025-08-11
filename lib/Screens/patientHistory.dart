@@ -152,10 +152,11 @@ class _PatientRecordState extends State<PatientRecord> {
                         Navigator.pushReplacementNamed(
                             context, AppRoutes.appointments);
                       },
-                      child: const CircleAvatar(
-                        radius: 28,
+                      child:  CircleAvatar(
+                        radius: 18.w,
                         backgroundColor: secondaryPurple,
                         child: Icon(
+                          size: 15.w,
                           Icons.calendar_month,
                           color: Colors.white,
                         ),
@@ -175,7 +176,7 @@ class _PatientRecordState extends State<PatientRecord> {
                   child: Column(
                     children: [
                       CircleAvatar(
-                        radius: 28,
+                        radius: 18.w,
                         backgroundColor: secondarylightPurple,
                         child: Image.asset(
                           "assets/writing.png",
@@ -186,10 +187,10 @@ class _PatientRecordState extends State<PatientRecord> {
                       SizedBox(
                         height: screenHeight * 0.01,
                       ),
-                      const Text("Treatments",
+                       Text("Treatments",
                           style: TextStyle(
                               color: secondarylightPurple,
-                              fontSize: 12,
+                              fontSize: screenHeight * 0.015,
                               fontWeight: FontWeight.bold))
                     ],
                   ),
@@ -203,7 +204,7 @@ class _PatientRecordState extends State<PatientRecord> {
                               context, AppRoutes.labReport);
                         },
                         child: CircleAvatar(
-                          radius: 28,
+                          radius: 18.w,
                           backgroundColor: secondaryPurple,
                           child: Image.asset(
                             "assets/comment.png",
@@ -231,10 +232,11 @@ class _PatientRecordState extends State<PatientRecord> {
                           Navigator.pushReplacementNamed(
                               context, AppRoutes.billingData);
                         },
-                        child: const CircleAvatar(
-                          radius: 28,
+                        child:  CircleAvatar(
+                          radius: 18.w,
                           backgroundColor: secondaryPurple,
                           child: Icon(
+                            size: 15.w,
                             Icons.payment,
                             color: Colors.white,
                           ),
@@ -320,6 +322,8 @@ class ReportListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    //final screenWidth = MediaQuery.of(context).size.width;
     // Sort the obj list by createdDate in descending order
     List<RecentTreatmentData> sortedObj =
         List.from(obj); // Create a copy of the list
@@ -394,33 +398,36 @@ class ReportListView extends StatelessWidget {
                                 idData: sortedObj[index].id,
                               )));
                 },
-                leading: const CircleAvatar(
-                  radius: 30,
+                leading:  CircleAvatar(
+                  radius: 18.w,
                   backgroundColor: whitelightPurple,
                   child: Icon(
+                    size: 15.w,
                     Icons.receipt_rounded,
                     color: white,
                   ),
                 ),
                 subtitle: Text(
                   formattedDate,
-                  style: TextStyle(color: Colors.black38, fontSize: 15.sp),
+                  style: TextStyle(color: Colors.black38, fontSize: screenHeight * 0.015,),
                 ),
                 trailing: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       "Start Time:$formattedTime",
                       style: TextStyle(
                           color: green,
-                          fontSize: 10.sp,
+                          fontSize: screenHeight * 0.015,
                           fontWeight: FontWeight.bold),
                     ),
+                    
                     Text(
                       "End Time:$formattedEndTime",
                       style: TextStyle(
                           color: dred,
-                          fontSize: 10.sp,
+                          fontSize: screenHeight * 0.015,
                           fontWeight: FontWeight.bold),
                     ),
                   ],

@@ -381,6 +381,7 @@ class _ListviewState extends State<Listview> {
                           children: [
                             Container(
                               height: widget.screenHeight * .09,
+                              width: widget.screenWidth *.09,
                               decoration: const BoxDecoration(
                                   color: secondaryPurple,
                                   borderRadius: BorderRadius.only(
@@ -393,13 +394,15 @@ class _ListviewState extends State<Listview> {
                                           builder: (context) => Appoinment()),
                                     );
                                   },
-                                  icon: const Icon(
+                                  icon:  Icon(
+                                    size: 15.w,
                                     Icons.calendar_month,
                                     color: white,
                                   )),
                             ),
                             Container(
                                 height: widget.screenHeight * .09,
+                                width: widget.screenWidth *.09,
                                 decoration: const BoxDecoration(
                                     color: secondarylightPurple,
                                     borderRadius: BorderRadius.only(
@@ -408,7 +411,8 @@ class _ListviewState extends State<Listview> {
                                     onPressed: () {
                                       _makePhoneCall();
                                     },
-                                    icon: const Icon(
+                                    icon:  Icon(
+                                      size: 15.w,
                                       Icons.phone,
                                       color: Colors.white,
                                     ))),

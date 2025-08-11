@@ -104,10 +104,11 @@ class _LabReportState extends State<LabReport> with TickerProviderStateMixin {
                         Navigator.pushReplacementNamed(
                             context, AppRoutes.appointments);
                       },
-                      child: const CircleAvatar(
-                        radius: 28,
+                      child:  CircleAvatar(
+                        radius: 18.w,
                         backgroundColor: secondaryPurple,
                         child: Icon(
+                          size: 15.w,
                           Icons.calendar_month,
                           color: Colors.white,
                         ),
@@ -136,7 +137,7 @@ class _LabReportState extends State<LabReport> with TickerProviderStateMixin {
                           );
                         },
                         child: CircleAvatar(
-                          radius: 28,
+                          radius: 18.w,
                           backgroundColor: secondaryPurple,
                           child: Image.asset(
                             "assets/writing.png",
@@ -148,10 +149,10 @@ class _LabReportState extends State<LabReport> with TickerProviderStateMixin {
                       SizedBox(
                         height: screenHeight * 0.01,
                       ),
-                      const Text("Treatments",
+                       Text("Treatments",
                           style: TextStyle(
                               color: secondaryPurple,
-                              fontSize: 12,
+                              fontSize: screenHeight * 0.015,
                               fontWeight: FontWeight.bold))
                     ],
                   ),
@@ -160,7 +161,7 @@ class _LabReportState extends State<LabReport> with TickerProviderStateMixin {
                   child: Column(
                     children: [
                       CircleAvatar(
-                        radius: 28,
+                        radius: 18.w,
                         backgroundColor: secondarylightPurple,
                         child: Image.asset(
                           "assets/comment.png",
@@ -187,10 +188,11 @@ class _LabReportState extends State<LabReport> with TickerProviderStateMixin {
                           Navigator.pushReplacementNamed(
                               context, AppRoutes.billingData);
                         },
-                        child: const CircleAvatar(
-                          radius: 28,
+                        child:  CircleAvatar(
+                          radius: 18.w,
                           backgroundColor: secondaryPurple,
                           child: Icon(
+                            size: 15.w,
                             Icons.payment,
                             color: Colors.white,
                           ),
@@ -277,13 +279,13 @@ class _LabReportState extends State<LabReport> with TickerProviderStateMixin {
               indicatorSize: TabBarIndicatorSize.tab,
               labelColor: whitelightPurple,
               unselectedLabelColor: whitelightPurple,
-              tabs: const [
+              tabs:  [
                 Tab(
                   child: Text(
                     "Lab Report",
                     style: TextStyle(
                         color: white,
-                        fontSize: 13,
+                        fontSize: screenHeight * 0.015,
                         fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -292,7 +294,7 @@ class _LabReportState extends State<LabReport> with TickerProviderStateMixin {
                     "Radiology Report",
                     style: TextStyle(
                         color: white,
-                        fontSize: 13,
+                        fontSize: screenHeight * 0.015,
                         fontWeight: FontWeight.bold),
                   ),
                 ),
