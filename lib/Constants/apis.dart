@@ -35,4 +35,4 @@ const String proceduresApi =
 const String forgotpassword =
     "/api/MobileApp/AppDetails/GetPatientPassword?email=";
 
-const String resetPassword="/api/MobileApp/AppDetails/ResetPassword" ;
+const String resetPass="/api/MobileApp/AppDetails/ResetPassword" ;

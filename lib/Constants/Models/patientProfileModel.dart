@@ -10,6 +10,8 @@ class ProfileData {
   String? dob;
   String? area;
   String? profilePhoto;
+  String? eid;
+  String? fileNo;
   ProfileData(
       {required this.name,
       required this.number,
@@ -21,7 +23,9 @@ class ProfileData {
       required this.country,
       required this.city,
       required this.area,
-      required this.profilePhoto});
+      required this.profilePhoto,
+      required this.eid,
+      required this.fileNo});
 
   factory ProfileData.fromJson(Map<String, dynamic> json) {
     return ProfileData(
@@ -35,6 +39,8 @@ class ProfileData {
         country: json['Country'] ?? 'UNITED ARAB EMIRATES',
         city: json['City'] ?? 'Dubai',
         area: json['Area'] ?? 'Nill',
-        profilePhoto: json['PatientPhoto']);
+        profilePhoto: json['PatientPhoto'],
+        eid: json['EmiratesId'] ?? '',
+        fileNo: json['FileNumber'] ?? '');
   }
 }

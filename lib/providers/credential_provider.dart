@@ -8,32 +8,53 @@ import 'package:http/http.dart' as http;
 import 'package:topline/providers/authentication_provider.dart';
 
 class CredentialProvider with ChangeNotifier {
-  Future<void> registerPatient(Registration student) async {
-    const url = baseUrl + registrationAPI;
-    var headers = {
-      'Content-Type': 'application/json',
-    };
+  Future<Map<String, dynamic>> registerPatient(Registration student) async {
+  const url = baseUrl + registrationAPI;
+  final headers = {'Content-Type': 'application/json'};
 
-    try {
-      final response = await http.post(
-        Uri.parse(url),
-        headers: headers,
-        body: json.encode(student.toJson()),
-      );
+  try {
+    final response = await http.post(
+      Uri.parse(url),
+      headers: headers,
+      body: json.encode(student.toJson()),
+    );
 
-      if (response.statusCode == 200) {
-        print('Registration successful');
+    final data = jsonDecode(response.body);
+
+    // Success case
+    if (response.statusCode == 200 && data['Success'] == true) {
+      return {'status': 'success', 'message': 'Registration successful'};
+    } 
+    
+    // Already exists or permission issue
+    else if (response.statusCode == 400) {
+      final message = data['Message'] ?? 'Unknown error';
+
+      if (message.toLowerCase().contains('already exists')) {
+        return {'status': 'already_exists', 'message': 'Patient is already registered'};
+      } else if (message.toLowerCase().contains('permission')) {
+        return {
+          'status': 'permission_error',
+          'message': 'You don’t have permission to perform this action'
+        };
       } else {
-        print(student);
-
-        print('Failed to register: ${response.body}');
-        throw Exception('Failed to register');
+        return {'status': 'error', 'message': message};
       }
-    } catch (error) {
-      print('Exception: $error');
-      throw error;
+    } 
+    
+    // Any other HTTP error
+    else {
+      return {
+        'status': 'error',
+        'message': 'Server error: ${response.statusCode}'
+      };
     }
+  } catch (error) {
+    return {'status': 'error', 'message': error.toString()};
   }
+}
+
+
 
   Future<void> loginUser(
       BuildContext context, String username, String password) async {
@@ -49,17 +70,17 @@ class CredentialProvider with ChangeNotifier {
         }),
       );
 
-      print('Response status: ${response.statusCode}');
-      print('Response body: ${response.body}');
+      //print('Response status: ${response.statusCode}');
+      //print('Response body: ${response.body}');
 
       if (response.statusCode == 200) {
         final responseData = jsonDecode(response.body);
 
         if (responseData['Success'] == true) {
-          print('Login successful');
+          //print('Login successful');
 
           var result = responseData['Result'][0];
-          print('UserId: ${result['UserId']}, Username: ${result['Username']}');
+         // print('UserId: ${result['UserId']}, Username: ${result['Username']}');
 
           final username = result['Username'];
           final userId = result["UserId"];
@@ -70,7 +91,7 @@ class CredentialProvider with ChangeNotifier {
 
           // Set user info
           authProvider.setUserInfo(username, userId);
-          print('UserId: $userId, Username: $username');
+        //  print('UserId: $userId, Username: $username');
         } else {
           // Handle unsuccessful login, display message
           String errorMessage;
@@ -89,7 +110,7 @@ class CredentialProvider with ChangeNotifier {
             'Failed to login with status code ${response.statusCode}');
       }
     } catch (e) {
-      print('Error: $e');
+      //print('Error: $e');
       throw Exception('$e');
     }
   }

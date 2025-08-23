@@ -66,7 +66,7 @@ class _AppoinmentState extends State<Appoinment>
         context: context,
         initialDate: DateTime.now(),
         firstDate: DateTime(2000),
-        lastDate: DateTime(2025),
+        lastDate: DateTime(2030),
         builder: (BuildContext context, Widget? child) {
           return Theme(
               data: ThemeData.light().copyWith(
@@ -196,7 +196,7 @@ class _AppoinmentState extends State<Appoinment>
                 Column(
                   children: [
                      CircleAvatar(
-                      radius: 18.w,
+                      radius: 25.r,
                       backgroundColor: secondarylightPurple,
                       child:  Icon(
                         size: 15.w,
@@ -227,7 +227,7 @@ class _AppoinmentState extends State<Appoinment>
                           );
                         },
                         child: CircleAvatar(
-                           radius: 18.w,
+                           radius: 25.r,
                           backgroundColor: secondaryPurple,
                           child: Image.asset(
                             "assets/writing.png",
@@ -256,7 +256,7 @@ class _AppoinmentState extends State<Appoinment>
                               context, AppRoutes.labReport);
                         },
                         child: CircleAvatar(
-                           radius: 18.w,
+                           radius: 25.r,
                           backgroundColor: secondaryPurple,
                           child: Image.asset(
                             "assets/comment.png",
@@ -285,7 +285,7 @@ class _AppoinmentState extends State<Appoinment>
                               context, AppRoutes.billingData);
                         },
                         child:  CircleAvatar(
-                           radius: 18.w,
+                           radius: 25.r,
                           backgroundColor: secondaryPurple,
                           child: Icon(
                             size: 15.w,
@@ -386,7 +386,7 @@ class _DoctorAppointmentListState extends State<DoctorAppointmentList> {
             Image.asset(
               'assets/empty_.png',
               scale: .010.sh,
-              opacity: AlwaysStoppedAnimation(.5),
+              opacity: const AlwaysStoppedAnimation(.5),
             ),
             const SizedBox(
               height: 10,
@@ -516,10 +516,10 @@ class _DoctorAppointmentListState extends State<DoctorAppointmentList> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          AuthProvider authProvider =
-                              Provider.of<AuthProvider>(context, listen: false);
-                          int doctorId = authProvider.docId;
-                          _selectDate(context, doctorId);
+                          
+                          final docId = widget.obj[index].doctorid ??0;
+                          final appointId =widget.obj[index].appointmentId ?? 0;
+                          _selectDate(context, docId,appointId);
                         },
                         child: Container(
                           height: widget.screenHeight * 0.08,
@@ -654,7 +654,7 @@ class _DoctorAppointmentListState extends State<DoctorAppointmentList> {
     });
   }
 
-  void _selectDate(BuildContext context, int doctorId) async {
+  void _selectDate(BuildContext context, int doctorId , int appointmentId) async {
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
@@ -677,12 +677,12 @@ class _DoctorAppointmentListState extends State<DoctorAppointmentList> {
     if (picked != null) {
       String selectedDate =
           "${picked.year}-${picked.month.toString().padLeft(2, '0')}-${picked.day.toString().padLeft(2, '0')}";
-      _showSlotPicker(context, selectedDate, doctorId);
+      _showSlotPicker(context, selectedDate, doctorId, appointmentId);
     }
   }
 
   void _showSlotPicker(
-      BuildContext context, String selectedDate, int doctorId) {
+      BuildContext context, String selectedDate, int doctorId, int appointmentId) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -692,6 +692,7 @@ class _DoctorAppointmentListState extends State<DoctorAppointmentList> {
               '${selectedDate}T00:00:00', '${selectedDate}T23:45:00', doctorId),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
+              print('$doctorId,i am alone');
               return Center(
                 child: SizedBox(
                   width: 50,
@@ -785,10 +786,10 @@ class _DoctorAppointmentListState extends State<DoctorAppointmentList> {
                             }
 
                             String time24Hour = convertTo24Hour(time);
-
+                          
                             _updateAppointment(
                               context,
-                              authProvider.appointId.toString(),
+                              appointmentId.toString(),
                               '$selectedDate $time24Hour',
                               doctorId.toString(),
                               authProvider.userId.toString(),

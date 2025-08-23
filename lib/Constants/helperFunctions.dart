@@ -5,8 +5,8 @@ import 'package:topline/Constants/colors.dart';
 showTextSnackBar(context, content) {
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       behavior: SnackBarBehavior.floating,
-      margin: EdgeInsets.all(15),
-      padding: EdgeInsets.all(15),
+      margin: const EdgeInsets.all(15),
+      padding: const EdgeInsets.all(15),
       content: Text(
         '$content',
         style: GoogleFonts.montserrat(),
@@ -18,11 +18,13 @@ class DialogHelper {
     BuildContext context,
     String content,
     String image,
+    {VoidCallback? onConfirm}
   ) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          backgroundColor: white,
           title: Text(
             "Alert",
             style: GoogleFonts.montserrat(),
@@ -46,6 +48,7 @@ class DialogHelper {
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
+                if (onConfirm != null) onConfirm();
               },
               child: Text(
                 "OK",

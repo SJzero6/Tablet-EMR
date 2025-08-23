@@ -266,10 +266,11 @@ class _ListviewState extends State<Listview> {
               ),
               child: GestureDetector(
                 onTap: () {
+                  final doctorname=widget.obj[index].doctorName ?? 'Doctor';
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const Slotspage(),
+                        builder: (context) =>  Slotspage(docid: widget.obj[index].id, docName:doctorname,),
                       ));
                 },
                 child: Card(

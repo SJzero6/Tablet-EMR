@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:topline/Constants/Models/patientProfileModel.dart';
+import 'package:topline/Constants/Widgets/resetpasswordDailogBox.dart';
 import 'package:topline/Constants/apis.dart';
 import 'package:topline/Constants/colors.dart';
 import 'package:topline/providers/authentication_provider.dart';
@@ -60,59 +61,84 @@ class _ViewProfileState extends State<ViewProfile> {
     }
   }
 
+  
+
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
+  
+    
     return Scaffold(
       appBar: AppBar(
-        elevation: 0,
-        flexibleSpace: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.topRight,
-              colors: [
-                secondaryPurple,
-                primarylightPurple,
-                secondarylightPurple,
-                secondaryPurple,
-              ],
+  elevation: 0,
+  flexibleSpace: Container(
+    decoration: const BoxDecoration(
+      gradient: LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment.topRight,
+        colors: [
+          secondaryPurple,
+          primarylightPurple,
+          secondarylightPurple,
+          secondaryPurple,
+        ],
+      ),
+    ),
+  ),
+  automaticallyImplyLeading: false,
+  toolbarHeight: 80,
+  title: Row(
+    children: [
+      Container(
+        margin: const EdgeInsets.only(top: 1),
+        child: GestureDetector(
+          onTap: () {
+            Navigator.of(context).pop();
+          },
+          child: Center(
+            child: Image.asset(
+              "assets/back-arrow.png",
+              scale: 20,
+              color: Colors.white,
             ),
           ),
         ),
-        automaticallyImplyLeading: false,
-        toolbarHeight: 80,
-        title: Row(
-          children: [
-            Container(
-              margin: const EdgeInsets.only(top: 1),
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.of(context).pop();
-                },
-                child: Center(
-                  child: Image.asset(
-                    "assets/back-arrow.png",
-                    scale: 20,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(width: 20),
-            Container(
-              margin: const EdgeInsets.only(top: 1),
-              child: Text(
-                "Profile",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: screenHeight * 0.02,
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-          ],
+      ),
+      const SizedBox(width: 20),
+      Container(
+        margin: const EdgeInsets.only(top: 1),
+        child: Text(
+          "Profile",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: screenHeight * 0.02,
+            fontWeight: FontWeight.bold,
+          ),
         ),
+      ),
+    ],
+  ),
+  actions: [
+    PopupMenuButton<String>(
+      icon: const Icon(Icons.more_vert, color: Colors.white),
+      onSelected: (value) {
+        if (value == 'reset_password') {
+          // Handle reset password action here
+          ForgotPasswordDialog.showEmailDialog(context);
+          // For example, show a dialog or navigate to reset password screen
+          print(obj[0].eid);
+        }
+      },
+      itemBuilder: (context) => [
+        const PopupMenuItem(
+          value: 'reset_password',
+          child: Text('Reset Password'),
+        ),
+      ],
+    ),
+  ],
+
       ),
       body: SingleChildScrollView(
         child: loading
@@ -353,7 +379,7 @@ class _ViewProfileState extends State<ViewProfile> {
                                           top: screenHeight * 0.01,
                                           bottom: screenHeight * 0.02),
                                       child: Text(
-                                        "${obj.isNotEmpty ? obj[0].nationality : 'N/A'}",
+                                        obj.isNotEmpty ? obj[0].nationality.toString() : 'N/A',
                                         style: const TextStyle(
                                             color: secondarylightPurple,
                                             fontWeight: FontWeight.bold),
@@ -430,14 +456,14 @@ class _ViewProfileState extends State<ViewProfile> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const Text(
-                                "Area",
+                                "File No",
                                 style: TextStyle(color: Colors.black54),
                               ),
                               SizedBox(
                                 height: screenHeight * 0.01,
                               ),
                               Text(
-                                "${obj.isNotEmpty ? obj[0].area : 'Dubai'}",
+                                "${obj.isNotEmpty ? obj[0].fileNo: ''}",
                                 style: const TextStyle(
                                     color: secondarylightPurple,
                                     fontWeight: FontWeight.bold),
@@ -445,21 +471,7 @@ class _ViewProfileState extends State<ViewProfile> {
                             ],
                           ),
                         ),
-                        // Container(
-                        //     margin: EdgeInsets.only(
-                        //         left: screenWidth * 0.04, top: screenHeight * 0.04),
-                        //     alignment: Alignment.topLeft,
-                        //     child: TextButton(
-                        //       onPressed: () {
-                        //         showDeleteAccountDialog(context);
-                        //       },
-                        //       child: Text(
-                        //         "DELETE ACCOUNT",
-                        //         style: TextStyle(
-                        //             color: const Color.fromARGB(255, 255, 17, 0),
-                        //             fontWeight: FontWeight.bold),
-                        //       ),
-                        //     )),
+                        
                       ],
                     ),
                   )
@@ -468,4 +480,5 @@ class _ViewProfileState extends State<ViewProfile> {
       ),
     );
   }
+
 }

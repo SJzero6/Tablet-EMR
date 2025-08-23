@@ -2,17 +2,15 @@
 
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:topline/Constants/colors.dart';
 import 'package:topline/Screens/account.dart';
 import 'package:topline/Screens/appoinmentList.dart';
 import 'package:topline/Screens/doctorsList.dart';
 import 'package:topline/Screens/home.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class NavBarScreen extends StatefulWidget {
-  const NavBarScreen({
-    Key? key,
-  }) : super(key: key);
+  const NavBarScreen({Key? key}) : super(key: key);
 
   @override
   State<NavBarScreen> createState() => _NavBarScreenState();
@@ -27,8 +25,7 @@ class _NavBarScreenState extends State<NavBarScreen> {
       HomePage(),
       Appoinment(),
       Doctors(),
-      AccountPage()
-      // TablePage1(),
+      AccountPage(),
     ];
   }
 
@@ -38,31 +35,34 @@ class _NavBarScreenState extends State<NavBarScreen> {
       resizeToAvoidBottomInset: false,
       body: _screens[_currentIndex],
       bottomNavigationBar: CurvedNavigationBar(
-        height: (50.h <= 75.0) ? 50.h : 75.0,
-        // selectedItemColor: blue,
+        height: 50.h.clamp(50.0, 75.0), // responsive height with min/max
         backgroundColor: Colors.transparent,
         buttonBackgroundColor: secondaryPurple,
         color: secondaryPurple,
         animationDuration: const Duration(milliseconds: 300),
         items: <Widget>[
-          Image.asset('assets/home.png', scale: 12.0),
-
-          Image.asset('assets/calendarlines.png', scale: 5.0),
-
+          Image.asset(
+            'assets/home.png',
+            width: 24.w, // responsive width
+            height: 24.h, // responsive height
+          ),
+          Image.asset(
+            'assets/calendarlines.png',
+            width: 24.w,
+            height: 24.h,
+          ),
           Image.asset(
             'assets/doctor.png',
-            scale: 17.0,
+            width: 24.w,
+            height: 24.h,
             color: white,
           ),
-
-          Image.asset('assets/user.png', scale: 5.0),
-
-          // BottomNavigationBarItem(
-          //     icon: Icon(Icons.book),
-          //     label: 'Booklet',
-          //     backgroundColor: naviblue),
+          Image.asset(
+            'assets/user.png',
+            width: 24.w,
+            height: 24.h,
+          ),
         ],
-
         onTap: (index) {
           setState(() {
             _currentIndex = index;

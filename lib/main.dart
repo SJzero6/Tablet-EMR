@@ -17,6 +17,7 @@ import 'package:topline/providers/patientProfile_provider.dart';
 import 'package:topline/providers/priscription_provider.dart';
 import 'package:topline/providers/problem_provider.dart';
 import 'package:topline/providers/procedures_provider.dart';
+import 'package:topline/providers/resetPasswordProvider.dart';
 import 'package:topline/providers/slots_provider.dart';
 import 'package:topline/providers/triages_provider.dart';
 import 'package:flutter/services.dart';
@@ -62,6 +63,7 @@ class MyApp extends StatelessWidget {
               ChangeNotifierProvider(create: (_) => ProfileService()),
               ChangeNotifierProvider(create: (_) => TriagesListService()),
               ChangeNotifierProvider(create: (_) => ForgotPasswordProvider()),
+              ChangeNotifierProvider(create: (_) => ResetPasswordProvider()),
             ],
             child: MaterialApp(
               initialRoute: AppRoutes.splash,

@@ -409,46 +409,92 @@ class _SignupPageState extends State<SignupPage> {
 
   // Submit Registration
   void _submitRegistration() async {
-    if (_isValid()) {
-      setState(() {
-        isLoading = true;
-      });
-
-      Registration newRegistration = Registration(
-        patientName: patientNameController.text.trim(),
-        emiratesId: emiratesIdController.text.trim(),
-        mobileNumber: mobileNumberController.text.trim(),
-        email: emailController.text.trim(),
-        username: usernameController.text.trim(),
-        password: passwordController.text.trim(),
-        isKeyActive: true,
-        regToken: generateRegistrationToken(),
+    if (!_isValid()) {
+      DialogHelper.showCustomAlertDialog(
+        context,
+        'Please fill out all required fields',
+        "assets/text-box-error.gif",
       );
+      return;
+    }
 
-      final authProvider = Provider.of<AuthProvider>(context, listen: false);
-      final credentialProvider =
-          Provider.of<CredentialProvider>(context, listen: false);
+    setState(() => isLoading = true);
 
-      authProvider.clearError();
-      authProvider.anApiStarted();
+    Registration newRegistration = Registration(
+      patientName: patientNameController.text.trim(),
+      emiratesId: emiratesIdController.text.trim(),
+      mobileNumber: mobileNumberController.text.trim(),
+      email: emailController.text.trim(),
+      username: usernameController.text.trim(),
+      password: passwordController.text.trim(),
+      isKeyActive: true,
+      regToken: generateRegistrationToken(),
+    );
 
-      try {
-        await credentialProvider.registerPatient(newRegistration);
-        authProvider.anApiStopped();
-        _showError('Registration Success');
-        Navigator.pushReplacementNamed(context, AppRoutes.login);
-      } catch (error) {
-        authProvider.anApiStopped();
-        _showError('Registration Error: $error');
-      } finally {
-        setState(() {
-          isLoading = false;
-        });
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final credentialProvider =
+        Provider.of<CredentialProvider>(context, listen: false);
+
+    authProvider.clearError();
+    authProvider.anApiStarted();
+
+    try {
+      final result = await credentialProvider.registerPatient(newRegistration);
+
+      authProvider.anApiStopped();
+
+      switch (result['status']) {
+        case 'success':
+          DialogHelper.showCustomAlertDialog(
+            context,
+            'Registration Successful',
+            "assets/success.gif",
+            onConfirm: () {
+              patientNameController.clear();
+              emiratesIdController.clear();
+              mobileNumberController.clear();
+              emailController.clear();
+              usernameController.clear();
+              passwordController.clear();
+              confirmPasswordController.clear();
+              Navigator.pushReplacementNamed(context, AppRoutes.login);
+            },
+          );
+          break;
+
+        case 'already_exists':
+          DialogHelper.showCustomAlertDialog(
+            context,
+            'Patient is already registered',
+            "assets/error.gif",
+          );
+          break;
+
+        case 'permission_error':
+          DialogHelper.showCustomAlertDialog(
+            context,
+            'Your Emirated ID is not Registerd with Tablet 10 Software. Contact Your Clinic',
+            "assets/error.gif",
+          );
+          break;
+
+        default:
+          DialogHelper.showCustomAlertDialog(
+            context,
+            'Registration failed: ${result['message']}',
+            "assets/error.gif",
+          );
+          break;
       }
-    } else {
-      DialogHelper.showCustomAlertDialog(context,
-          'Please fill out all required fields', "assets/text-box-error.gif");
-      //_showError('Please fill out all required fields');
+    } catch (error) {
+      authProvider.anApiStopped();
+      DialogHelper.showCustomAlertDialog(
+        context,
+        'Registration Error: ${error.toString()}',
+        "assets/error.gif",
+      );
+    } finally {
+      setState(() => isLoading = false);
     }
   }
 

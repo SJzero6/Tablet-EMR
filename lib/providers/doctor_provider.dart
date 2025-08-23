@@ -37,12 +37,14 @@ class DoctorProvider with ChangeNotifier {
           final docname = docData.doctorName;
           final docid = docData.id;
           authProvider.setDoctorInfo(docname.toString(), docid);
+
+          print(docid);
         }
       }
     } else {
       throw Exception('Failed to load doctor data');
     }
-    print(doctorData);
+    //print(doctorData);
     return doctorData;
   }
 }

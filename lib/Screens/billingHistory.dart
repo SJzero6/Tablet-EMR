@@ -158,7 +158,7 @@ class _TransactionState extends State<Transaction> {
                           );
                         },
                         child:  CircleAvatar(
-                          radius: 18.w,
+                          radius: 25.r,
                           backgroundColor: secondaryPurple,
                           child: Icon(
                             size: 15.w,
@@ -190,7 +190,7 @@ class _TransactionState extends State<Transaction> {
                             );
                           },
                           child: CircleAvatar(
-                            radius: 18.w,
+                            radius: 25.r,
                             backgroundColor: secondaryPurple,
                             child: Image.asset(
                               "assets/writing.png",
@@ -223,7 +223,7 @@ class _TransactionState extends State<Transaction> {
                             );
                           },
                           child: CircleAvatar(
-                            radius: 18.w,
+                            radius: 25.r,
                             backgroundColor: secondaryPurple,
                             child: Image.asset(
                               "assets/comment.png",
@@ -247,7 +247,7 @@ class _TransactionState extends State<Transaction> {
                     child: Column(
                       children: [
                          CircleAvatar(
-                          radius: 18.w,
+                          radius: 25.r,
                           backgroundColor: secondarylightPurple,
                           child: Icon(
                             size: 15.w,

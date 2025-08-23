@@ -206,7 +206,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Image.asset(
                   'assets/medical-team.png',
-                  scale: 4,
+                  scale: 4.r,
                 )
               ],
             ),
@@ -214,11 +214,11 @@ class _HomePageState extends State<HomePage> {
           Center(
             child: loading
                 ? SizedBox(
-                    width: 50,
-                    height: 50,
+                    width: 50.w,
+                    height: 50.h,
                     child: Image.asset(
                       'assets/Loading.gif',
-                      scale: 1.sp,
+                      scale: 1.r,
                     ),
                   )
                 : CarouselSlider(
@@ -227,43 +227,49 @@ class _HomePageState extends State<HomePage> {
                       autoPlay: true,
                       enlargeCenterPage: true,
                       viewportFraction: 0.6,
-                      aspectRatio: 16 / 9,
+                      aspectRatio: 15 / 8,
                       autoPlayCurve: Curves.fastOutSlowIn,
                       enableInfiniteScroll: true,
-                      autoPlayAnimationDuration: const Duration(milliseconds: 800),
+                      autoPlayAnimationDuration:
+                          const Duration(milliseconds: 800),
                       initialPage: 0,
                     ),
                     items: doctorData.map((item) {
                       return Stack(
-                        
                         children: [
                           // Image
                           Container(
                             decoration: BoxDecoration(
-                                color: secondaryPurple,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.5),
-                                    spreadRadius: 5,
-                                    blurRadius: 10,
-                                    offset: const Offset(0, 3),
-                                  ),
-                                ],
-                                borderRadius: const BorderRadius.only(
-                                    topLeft: Radius.circular(20.0),
-                                    topRight: Radius.circular(20.0))),
+                              color: secondaryPurple,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  spreadRadius: 5.r,
+                                  blurRadius: 10.r, 
+                                  offset: Offset(
+                                      0, 3.h), 
+                                ),
+                              ],
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(20.r), // responsive
+                                topRight: Radius.circular(20.r),
+                              ),
+                            ),
                             child: ClipRRect(
-                              borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(10.0),
-                                  topRight: Radius.circular(10.0)),
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(10.r), // responsive
+                                topRight: Radius.circular(10.r),
+                              ),
                               child: Image.asset(
                                 'assets/doctor.png',
                                 color: white,
                                 fit: BoxFit.contain,
                                 width: double.infinity,
+                                height: 200.h, // responsive height
                               ),
                             ),
                           ),
+
                           // Text Container Overlay
                           Positioned(
                             bottom: 0,
@@ -271,29 +277,33 @@ class _HomePageState extends State<HomePage> {
                             right: 0,
                             child: Container(
                               decoration: BoxDecoration(
-                                borderRadius: const BorderRadius.only(
-                                    bottomLeft: Radius.circular(10.0),
-                                    bottomRight: Radius.circular(10.0)),
+                                borderRadius: BorderRadius.only(
+                                  bottomLeft:
+                                      Radius.circular(10.r), // responsive
+                                  bottomRight: Radius.circular(10.r),
+                                ),
                                 color: white.withOpacity(0.8),
                               ),
-                              // White background with some transparency
                               padding: EdgeInsets.symmetric(
-                                  vertical: 10.h, horizontal: 10.w),
+                                vertical: 15.h, // responsive padding
+                                horizontal: 10.w,
+                              ),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    '${doctorData[0].doctorName}',
+                                    '${item.doctorName}',
                                     style: TextStyle(
-                                      fontSize: 18.sp,
+                                      fontSize: 18.sp, // responsive font
                                       fontWeight: FontWeight.bold,
                                       color: primaryPurple,
                                     ),
                                   ),
+                                  SizedBox(height: 5.h), // responsive spacing
                                   Text(
-                                    '${doctorData[0].doctorDepartment}',
+                                    '${item.doctorDepartment}',
                                     style: TextStyle(
-                                      fontSize: 14.sp,
+                                      fontSize: 14.sp, // responsive font
                                       color: Colors.grey[900],
                                     ),
                                   ),
@@ -341,8 +351,8 @@ class _HomePageState extends State<HomePage> {
           // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-              height: 35.sp,
-              width: 30.sp,
+              height: 35.h,
+              width: 30.w,
               child: Image.asset(
                 asset,
                 color: Colors.white,
@@ -353,7 +363,7 @@ class _HomePageState extends State<HomePage> {
               title,
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 0.02.sh,
+                fontSize: 15.sp,
                 fontWeight: FontWeight.bold,
                 color: fontcolor,
               ),

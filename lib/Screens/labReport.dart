@@ -105,7 +105,7 @@ class _LabReportState extends State<LabReport> with TickerProviderStateMixin {
                             context, AppRoutes.appointments);
                       },
                       child:  CircleAvatar(
-                        radius: 18.w,
+                        radius: 25.r,
                         backgroundColor: secondaryPurple,
                         child: Icon(
                           size: 15.w,
@@ -137,7 +137,7 @@ class _LabReportState extends State<LabReport> with TickerProviderStateMixin {
                           );
                         },
                         child: CircleAvatar(
-                          radius: 18.w,
+                          radius: 25.r,
                           backgroundColor: secondaryPurple,
                           child: Image.asset(
                             "assets/writing.png",
@@ -161,7 +161,7 @@ class _LabReportState extends State<LabReport> with TickerProviderStateMixin {
                   child: Column(
                     children: [
                       CircleAvatar(
-                        radius: 18.w,
+                        radius: 25.r,
                         backgroundColor: secondarylightPurple,
                         child: Image.asset(
                           "assets/comment.png",
@@ -189,7 +189,7 @@ class _LabReportState extends State<LabReport> with TickerProviderStateMixin {
                               context, AppRoutes.billingData);
                         },
                         child:  CircleAvatar(
-                          radius: 18.w,
+                          radius: 25.r,
                           backgroundColor: secondaryPurple,
                           child: Icon(
                             size: 15.w,

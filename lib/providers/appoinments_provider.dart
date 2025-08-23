@@ -8,32 +8,36 @@ import 'package:topline/providers/authentication_provider.dart';
 
 class AppointmentProvider extends ChangeNotifier {
   Future<List<AppoinmentData>> getAppoinmentTest(
-      AuthProvider authprovider, apiurl) async {
-    final url = Uri.parse(baseUrl + apiurl);
-    List<AppoinmentData> appointData = [];
-
-    var response = await http.get(url);
-    if (response.statusCode == 200) {
-      var body = jsonDecode(response.body);
-      final result = body['Result'];
+    AuthProvider authprovider, apiurl) async {
+  final url = Uri.parse(baseUrl + apiurl);
+  List<AppoinmentData> appointData = [];
+  
+  var response = await http.get(url);
+  
+  if (response.statusCode == 200) {
+    var body = jsonDecode(response.body);
+    final result = body['Result'];
+    
+    // Check if the result is a List before proceeding
+    if (result is List) {
       for (var appoinment in result) {
         AppoinmentData appoinmentData = AppoinmentData.fromJson(appoinment);
-
         appointData.add(appoinmentData);
-        if (appointData.isNotEmpty) {
-          final appoinmentdate = appoinmentData.appoinmentDate;
-          final appoinmenttime = appoinmentData.appointmentTime;
-          final appoinmentId = appoinmentData.appointmentId;
-          authprovider.setAppointInfo(appoinmentdate.toString(),
-              appoinmenttime.toString(), appoinmentId.toString());
-        }
       }
+      
+      // Do not call authprovider.setAppointInfo here.
+      // Your list is now fully populated.
+      
     } else {
-      throw Exception('Failed to load Appoinment Data data');
+      throw Exception('Failed to load Appoinment Data: Result is not a list');
     }
-    print(appointData);
-    return appointData;
+  } else {
+    throw Exception('Failed to load Appoinment Data: Status code ${response.statusCode}');
   }
+  
+  print(appointData);
+  return appointData; // Return the complete list
+}
 
   List<AppoinmentData> _appointments = [];
 

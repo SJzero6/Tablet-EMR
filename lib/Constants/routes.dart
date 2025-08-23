@@ -39,7 +39,7 @@ class AppRoutes {
     labReport: (context) => const LabReport(),
     billingData: (context) => Transaction(),
     patientHistory: (context) => PatientRecord(),
-    bookingpage: (context) => const Slotspage(),
+   // bookingpage: (context) => const Slotspage(docid: doc,),
     accountpage: (context) => const AccountPage(),
   };
 }

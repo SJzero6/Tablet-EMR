@@ -13,7 +13,9 @@ import 'package:topline/providers/booking_provider.dart';
 import 'package:topline/providers/slots_provider.dart';
 
 class Slotspage extends StatefulWidget {
-  const Slotspage({Key? key}) : super(key: key);
+  final int docid;
+  final String docName;
+   const Slotspage({super.key, required this.docid, required this.docName});
 
   @override
   State<Slotspage> createState() => _SlotspageState();
@@ -64,7 +66,7 @@ class _SlotspageState extends State<Slotspage> with TickerProviderStateMixin {
     String selectedDateString = DateFormat('yyyy-MM-dd').format(_selectedDay);
 
     await provider.fetchTimeslots("${selectedDateString}T00:00:00",
-        "${selectedDateString}T23:45:00", authProvider.docId.toString());
+        "${selectedDateString}T23:45:00", widget.docid.toString());
   }
 
   void _lockSlot(String slot) {
@@ -90,30 +92,6 @@ class _SlotspageState extends State<Slotspage> with TickerProviderStateMixin {
     return false;
   }
 
-  // Future<void> _pickImage() async {
-  //   final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
-
-  //   if (pickedFile != null) {
-  //     final imagePath = pickedFile.path;
-  //     final prefs = await SharedPreferences.getInstance();
-  //     await prefs.setString('profileImagePath', imagePath);
-
-  //     setState(() {
-  //       _profileImage = File(imagePath);
-  //     });
-  //   }
-  // }
-
-  // Future<void> _loadProfileImage() async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   final imagePath = prefs.getString('profileImagePath');
-
-  //   if (imagePath != null) {
-  //     setState(() {
-  //       _profileImage = File(imagePath);
-  //     });
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -170,33 +148,14 @@ class _SlotspageState extends State<Slotspage> with TickerProviderStateMixin {
               width: 0.05.w,
             ),
             Text(
-              'Booking to\t${authProvider.docname}',
+              'Booking to\t${widget.docName}',
               style: GoogleFonts.afacad(
                 fontSize: screenHeight * 0.02,
                 color: white,
                 textStyle: const TextStyle(fontWeight: FontWeight.bold),
               ),
             ),
-            // GestureDetector(
-            //   onTap: _pickImage,
-            //   child: Container(
-            //     decoration: BoxDecoration(
-            //       shape: BoxShape.circle,
-            //       border: Border.all(width: 3, color: Colors.white),
-            //     ),
-            //     child: CircleAvatar(
-            //       radius: 25,
-            //       backgroundColor: Colors.white,
-            //       backgroundImage: _profileImage != null
-            //           ? FileImage(_profileImage!)
-            //           : const AssetImage('assets/user-circle-regular-240.png')
-            //               as ImageProvider,
-            //       child: _profileImage == null
-            //           ? const Icon(Icons.person, size: 0)
-            //           : null,
-            //     ),
-            //   ),
-            // ),
+            
           ],
         ),
         automaticallyImplyLeading: false,
@@ -209,24 +168,6 @@ class _SlotspageState extends State<Slotspage> with TickerProviderStateMixin {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 10.h),
-              // const Wrap(
-              //   spacing: 8.0,
-              //   alignment: WrapAlignment.center,
-              //   children: [
-              //     Chip(
-              //       label: Text(
-              //         'Neurologist',
-              //         style: TextStyle(color: red),
-              //       ),
-              //     ),
-              //     Chip(
-              //       label: Text('Neuromed', style: TextStyle(color: red)),
-              //     ),
-              //     Chip(
-              //       label: Text('Medicine', style: TextStyle(color: red)),
-              //     ),
-              //   ],
-              // ),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -294,14 +235,7 @@ class _SlotspageState extends State<Slotspage> with TickerProviderStateMixin {
                               height: 300.h,
                               margin: const EdgeInsets.symmetric(horizontal: 4),
                               decoration: BoxDecoration(
-                                // boxShadow: const [
-                                //   BoxShadow(
-                                //     color: Color.fromRGBO(81, 40, 18, 0.298),
-                                //     blurRadius: 20,
-                                //     offset: Offset(5, 5),
-                                //   )
-
-                                // ],
+                                
 
                                 border: isSelected
                                     ? Border.all(
@@ -618,7 +552,7 @@ class _SlotspageState extends State<Slotspage> with TickerProviderStateMixin {
         Provider.of<AuthProvider>(context, listen: false);
     String selectedDateString = DateFormat('yyyy-MM-dd').format(_selectedDay);
     String selectedDay = "$selectedDateString $selectedSlotTime";
-    String doctorId = authProvider.docId.toString();
+    String doctorId = widget.docid.toString();
     String patientId = authProvider.userId.toString();
 
     final response =

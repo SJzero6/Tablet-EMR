@@ -46,16 +46,19 @@ class AuthProvider with ChangeNotifier {
   String? _appointDate;
   String? _appointTime;
   String? _appointId;
+  int? _docid;
 
   String? get appointDate => _appointDate;
   String? get appointtime => _appointTime;
   String? get appointId => _appointId;
+  int? get appointDocId =>_docid;
 
   void setAppointInfo(
-      String appoinmentdate, String appoinmenttime, String appoinmentId) {
+      String appoinmentdate, String appoinmenttime, String appoinmentId, int doctorId ) {
     _appointDate = appoinmentdate;
     _appointTime = appoinmenttime;
     _appointId = appoinmentId;
+    _docid =doctorId;
     notifyListeners(); // Notify listeners to update widgets consuming this data
   }
 

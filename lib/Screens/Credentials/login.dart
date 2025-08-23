@@ -127,7 +127,7 @@ class _LoginPageState extends State<LoginPage> {
                         height: 50,
                         child: Image.asset(
                           'assets/Loading.gif',
-                          scale: 1.sp,
+                          scale: 1.r,
                         ),
                       ),
                     )
@@ -142,7 +142,7 @@ class _LoginPageState extends State<LoginPage> {
                                 children: [
                                   Image.asset(
                                     'assets/logo.png',
-                                    scale: 3.h,
+                                    scale: 3.r,
                                   ),
                                   const SizedBox(width: 20),
                                   Text(
@@ -311,8 +311,8 @@ class _LoginPageState extends State<LoginPage> {
                                   width: double.infinity,
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 50, vertical: 15),
+                                      padding:  EdgeInsets.symmetric(
+                                          horizontal: 50.w, vertical: 10.h),
                                       shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(30.0),

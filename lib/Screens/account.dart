@@ -150,7 +150,7 @@ class _AccountPageState extends State<AccountPage> {
                                       builder: (context) => Appoinment()));
                             },
                             child: CircleAvatar(
-                              radius: 18.w,
+                              radius: 25.r,
                               backgroundColor: white,
                               child: Icon(
                                 size: 15.w,
@@ -181,7 +181,7 @@ class _AccountPageState extends State<AccountPage> {
                               );
                             },
                             child: CircleAvatar(
-                              radius: 18.w,
+                              radius: 25.r,
                               backgroundColor: white,
                               child: Image.asset(
                                 "assets/writing.png",
@@ -212,7 +212,7 @@ class _AccountPageState extends State<AccountPage> {
                         child: Column(
                           children: [
                             CircleAvatar(
-                              radius: 18.w,
+                              radius: 25.r,
                               backgroundColor: white,
                               child: Image.asset(
                                 "assets/comment.png",
@@ -243,7 +243,7 @@ class _AccountPageState extends State<AccountPage> {
                               );
                             },
                             child: CircleAvatar(
-                              radius: 18.w,
+                              radius: 25.r,
                               backgroundColor: white,
                               child: Icon(
                                 Icons.payment,

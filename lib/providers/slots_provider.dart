@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 import 'dart:convert';
 
 import 'package:topline/Constants/Models/updateSlotsModel.dart';
 import 'package:topline/Constants/apis.dart';
+import 'package:topline/providers/authentication_provider.dart';
 
 class TimeslotProvider with ChangeNotifier {
   bool loading = true;
@@ -81,6 +83,7 @@ class TimeslotProvider with ChangeNotifier {
 
   Future<UpdateTimeSlot> updateFetchTimeSlots(
       String fromDate, String toDate, int doctorId) async {
+        
     final url =
         '$baseUrl$slotsApi?from_date=$fromDate&to_date=$toDate&doctor_id=$doctorId';
     print('Fetching from URL: $url');

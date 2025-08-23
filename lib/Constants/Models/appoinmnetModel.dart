@@ -8,6 +8,7 @@ class AppoinmentData {
   String? appointmentTime;
   DateTime appointmentDateTime;
   int? appointmentId;
+  int? doctorid;
 
   AppoinmentData({
     this.doctorName,
@@ -17,6 +18,7 @@ class AppoinmentData {
     required this.appoinmentDate,
     required this.appointmentDateTime,
     this.appointmentId,
+    this.doctorid,
   });
 
   factory AppoinmentData.fromJson(Map<String, dynamic> json) => AppoinmentData(
@@ -28,6 +30,7 @@ class AppoinmentData {
         appointmentDateTime:
             DateFormat('dd/MM/yyyy').parseStrict(json['AppointmentDate']),
         appointmentId: json["appointment_id"],
+        doctorid: json['doctor_id'] ?? 0,
       );
 
   Map<String, dynamic> toJson() => {
@@ -37,6 +40,7 @@ class AppoinmentData {
         'AppointmentTime': appointmentTime,
         'AppointmentDate': appoinmentDate,
         "appointment_id": appointmentId,
+        "doctor_id":doctorid,
       };
 
   // Method to copy the current instance with optional new values for some fields

@@ -62,4 +62,40 @@ class ForgotPasswordProvider with ChangeNotifier {
       });
     }
   }
+ Future<bool> checkEmailExists(String email) async {
+  try {
+    _isLoading = true;
+    notifyListeners();
+
+    final response = await http.post(
+      Uri.parse(baseUrl + forgotpassword),
+      body: {'email': email},
+    );
+
+    _isLoading = false;
+    notifyListeners();
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      final result = data["Result"]?.toString().trim();
+
+      print("API Response: $data"); // Debug
+
+      if (result != null && result.toLowerCase() == "no user found") {
+        return false; // Email not registered
+      }
+      return true; // Email exists
+    }
+
+    return false;
+  } catch (e) {
+    _isLoading = false;
+    notifyListeners();
+    print("Error checking email: $e");
+    return false;
+  }
+}
+
+
+  
 }
