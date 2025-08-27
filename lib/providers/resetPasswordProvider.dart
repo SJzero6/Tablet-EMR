@@ -17,6 +17,7 @@ class ResetPasswordProvider with ChangeNotifier {
   Future<Map<String, dynamic>> resetPassword({
     required String email,
     required String newPassword,
+    required String oldPassword
   }) async {
     _setLoading(true);
 
@@ -27,6 +28,7 @@ class ResetPasswordProvider with ChangeNotifier {
         headers: {"Content-Type": "application/json"},
         body: jsonEncode({
           "email": email,
+          "oldPassword":oldPassword,
           "newPassword": newPassword,
         }),
       );
@@ -42,7 +44,7 @@ class ResetPasswordProvider with ChangeNotifier {
       } else {
         return {
           'success': false,
-          'message': 'Failed with status code: ${response.statusCode}',
+          'message': 'Your Old password is incorrect',
         };
       }
     } catch (e) {

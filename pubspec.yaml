@@ -52,6 +52,9 @@ dependencies:
   dio: ^5.7.0
   permission_handler: ^11.3.1
   url_launcher: ^6.3.1
+  share_plus: ^11.1.0
+  syncfusion_flutter_pdfviewer: ^30.2.7
+
   
 
 dev_dependencies:

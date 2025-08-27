@@ -160,9 +160,9 @@ class _TransactionState extends State<Transaction> {
                         child:  CircleAvatar(
                           radius: 25.r,
                           backgroundColor: secondaryPurple,
-                          child: Icon(
-                            size: 15.w,
-                            Icons.calendar_month,
+                          child: Image.asset(
+                            "assets/calendar.png",
+                            scale: 12,
                             color: Colors.white,
                           ),
                         ),
@@ -249,9 +249,9 @@ class _TransactionState extends State<Transaction> {
                          CircleAvatar(
                           radius: 25.r,
                           backgroundColor: secondarylightPurple,
-                          child: Icon(
-                            size: 15.w,
-                            Icons.payment,
+                          child: Image.asset(
+                            "assets/credit-card.png",
+                            scale: 20,
                             color: white,
                           ),
                         ),
@@ -386,50 +386,55 @@ class _BillingListState extends State<BillingList> {
                   DateTime.parse(sortedObj[index].invoiceDate.toString());
               String formattedDate =
                   "${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
+                  const aedSymbol = 'د.إ'; 
               return Container(
+                
                 margin: const EdgeInsets.only(left: 15, right: 15),
                 child: Card(
                   elevation: 5,
-                  child: ListTile(
-                      onTap: () {
-                        print("topline.computers$index");
-                      },
-                      leading: const CircleAvatar(
-                        radius: 30,
-                        backgroundColor: whitelightPurple,
-                        child: Icon(
-                          Icons.money,
-                          color: white,
-                        ),
-                      ),
-                      subtitle: Text(
-                        formattedDate,
-                        style: const TextStyle(color: Colors.black87),
-                      ),
-                      trailing: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Text(
-                            "AED ${sortedObj[index].paidAmount}",
-                            style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: dred,
-                                fontSize: 16),
+                  child: Padding(
+                    padding:  EdgeInsets.symmetric(vertical: 15.h),
+                    child: ListTile(
+                        onTap: () {
+                          print("topline.computers$index");
+                        },
+                        leading: const CircleAvatar(
+                          radius: 30,
+                          backgroundColor: whitelightPurple,
+                          child: Icon(
+                            Icons.money,
+                            color: white,
                           ),
-                          Text(
-                            "Bal: AED ${sortedObj[index].balance}",
-                            style: const TextStyle(color: green, fontSize: 13),
-                          ),
-                        ],
-                      ),
-                      title: Text(
-                        '${sortedObj[index].invoiceNumber}',
-                        style: const TextStyle(
-                          color: primaryPurple,
-                          fontWeight: FontWeight.bold,
                         ),
-                      )),
+                        subtitle: Text(
+                          formattedDate,
+                          style: const TextStyle(color: Colors.black87),
+                        ),
+                        trailing: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Text(
+                              "AED ${sortedObj[index].paidAmount}",
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: dred,
+                                  fontSize: 16),
+                            ),
+                            Text(
+                              "Bal: AED ${sortedObj[index].balance}",
+                              style: const TextStyle(color: green, fontSize: 13),
+                            ),
+                          ],
+                        ),
+                        title: Text(
+                          '${sortedObj[index].invoiceNumber}',
+                          style: const TextStyle(
+                            color: primaryPurple,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        )),
+                  ),
                 ),
               );
             },

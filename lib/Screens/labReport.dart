@@ -107,11 +107,11 @@ class _LabReportState extends State<LabReport> with TickerProviderStateMixin {
                       child:  CircleAvatar(
                         radius: 25.r,
                         backgroundColor: secondaryPurple,
-                        child: Icon(
-                          size: 15.w,
-                          Icons.calendar_month,
-                          color: Colors.white,
-                        ),
+                        child: Image.asset(
+                            "assets/calendar.png",
+                            scale: 12,
+                            color: Colors.white,
+                          ),
                       ),
                     ),
                     SizedBox(
@@ -191,10 +191,10 @@ class _LabReportState extends State<LabReport> with TickerProviderStateMixin {
                         child:  CircleAvatar(
                           radius: 25.r,
                           backgroundColor: secondaryPurple,
-                          child: Icon(
-                            size: 15.w,
-                            Icons.payment,
-                            color: Colors.white,
+                          child: Image.asset(
+                            "assets/credit-card.png",
+                            scale: 20,
+                            color: white,
                           ),
                         ),
                       ),
@@ -366,7 +366,7 @@ class _ListBuilderState extends State<ListBuilder> {
                       ),
                     );
                   } else if (snapshot.hasError) {
-                    return Center(child: Text('Error: ${snapshot.error}'));
+                    return const Center(child: Text('Error: Something went wrong contact admin'));
                   } else {
                     List<Map<String, String>> data = snapshot.data ?? [];
 
@@ -424,7 +424,9 @@ class _ListBuilderState extends State<ListBuilder> {
                           String formattedDate =
                               "${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
                           return Container(
-                            margin: const EdgeInsets.only(left: 15, right: 15),
+                            
+                            margin: const EdgeInsets.only(left: 15, right: 15, top: 5),
+                            padding:  EdgeInsets.symmetric(vertical: 10.h),
                             child: Card(
                               elevation: 5,
                               child: ListTile(

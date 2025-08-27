@@ -61,29 +61,28 @@ class _SlotspageState extends State<Slotspage> with TickerProviderStateMixin {
 
   void _fetchTimeslots() async {
     final provider = Provider.of<TimeslotProvider>(context, listen: false);
-    AuthProvider authProvider =
-        Provider.of<AuthProvider>(context, listen: false);
+    Provider.of<AuthProvider>(context, listen: false);
     String selectedDateString = DateFormat('yyyy-MM-dd').format(_selectedDay);
 
     await provider.fetchTimeslots("${selectedDateString}T00:00:00",
         "${selectedDateString}T23:45:00", widget.docid.toString());
   }
 
-  void _lockSlot(String slot) {
-    setState(() {
-      if (!lockedSlotsMap.containsKey(_selectedDay)) {
-        lockedSlotsMap[_selectedDay] = [];
-      }
+  // void _lockSlot(String slot) {
+  //   setState(() {
+  //     if (!lockedSlotsMap.containsKey(_selectedDay)) {
+  //       lockedSlotsMap[_selectedDay] = [];
+  //     }
 
-      lockedSlotsMap[_selectedDay]!.add(slot);
-    });
+  //     lockedSlotsMap[_selectedDay]!.add(slot);
+  //   });
 
-    Future.delayed(const Duration(days: 1), () {
-      setState(() {
-        lockedSlotsMap[_selectedDay]!.remove(slot);
-      });
-    });
-  }
+  //   Future.delayed(const Duration(days: 1), () {
+  //     setState(() {
+  //       lockedSlotsMap[_selectedDay]!.remove(slot);
+  //     });
+  //   });
+  // }
 
   bool _isSlotLocked(String slot) {
     if (lockedSlotsMap.containsKey(_selectedDay)) {
@@ -96,7 +95,6 @@ class _SlotspageState extends State<Slotspage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<TimeslotProvider>(context);
-    final authProvider = Provider.of<AuthProvider>(context);
     String monthName =
         DateFormat.MMMM().format(DateTime(0, _selectedDay.month));
     final screenHeight = MediaQuery.of(context).size.height;

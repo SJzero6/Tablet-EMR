@@ -62,40 +62,48 @@ class ForgotPasswordProvider with ChangeNotifier {
       });
     }
   }
- Future<bool> checkEmailExists(String email) async {
-  try {
+
+  Future<bool> checkEmailExists(String email) async {
+    final url = "$baseUrl$forgotpassword$email";
+
+    // Set loading state at the beginning
     _isLoading = true;
+    _errorMessage = null; // Clear previous errors
+    _password = null; // Clear previous password
     notifyListeners();
 
-    final response = await http.post(
-      Uri.parse(baseUrl + forgotpassword),
-      body: {'email': email},
-    );
+    try {
+      final response = await http.get(Uri.parse(url));
 
-    _isLoading = false;
-    notifyListeners();
-
-    if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
-      final result = data["Result"]?.toString().trim();
-
-      print("API Response: $data"); // Debug
-
-      if (result != null && result.toLowerCase() == "no user found") {
-        return false; // Email not registered
+      final jsonResponse = json.decode(response.body);
+        
+      // Check for success from the API's response body
+      if (jsonResponse['Success']) {
+        // Now, check the 'Result' field to see if a user was actually found.
+        if (jsonResponse['Result'] != "No User Found") {
+          _password = jsonResponse['Result']; // Set the password
+          _isLoading = false;
+          notifyListeners();
+          return true; // Return true on success
+        } else {
+          _errorMessage = "Email not found or error occurred!"; // Set the error message
+          _isLoading = false;
+          notifyListeners();
+          return false; // Return false because no user was found
+        }
+      } else {
+        _errorMessage = "An API error occurred. Please check the API response.";
+        _isLoading = false;
+        notifyListeners();
+        return false;
       }
-      return true; // Email exists
+    } catch (e) {
+      // Handle network exceptions and JSON decoding errors
+      _errorMessage = "An error occurred. Please try again.";
+      _isLoading = false;
+      notifyListeners();
+      return false;
     }
-
-    return false;
-  } catch (e) {
-    _isLoading = false;
-    notifyListeners();
-    print("Error checking email: $e");
-    return false;
   }
-}
-
-
   
 }

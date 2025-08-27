@@ -156,6 +156,9 @@ class _AccordionExampleState extends State<AccordionExample> {
         ),
       ),
       body: SingleChildScrollView(
+        padding:const EdgeInsets.only(right: 5),
+        physics:const BouncingScrollPhysics(),
+        
         child: Column(
           children: [
             Accordion(

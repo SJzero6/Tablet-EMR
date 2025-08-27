@@ -198,11 +198,11 @@ class _AppoinmentState extends State<Appoinment>
                      CircleAvatar(
                       radius: 25.r,
                       backgroundColor: secondarylightPurple,
-                      child:  Icon(
-                        size: 15.w,
-                        Icons.calendar_month,
-                        color: Colors.white,
-                      ),
+                      child:  Image.asset(
+                            "assets/calendar.png",
+                            scale: 12,
+                            color: Colors.white,
+                          ),
                     ),
                     SizedBox(
                       height: screenHeight * 0.01,
@@ -287,10 +287,10 @@ class _AppoinmentState extends State<Appoinment>
                         child:  CircleAvatar(
                            radius: 25.r,
                           backgroundColor: secondaryPurple,
-                          child: Icon(
-                            size: 15.w,
-                            Icons.payment,
-                            color: Colors.white,
+                          child: Image.asset(
+                            "assets/credit-card.png",
+                            scale: 20,
+                            color: white,
                           ),
                         ),
                       ),

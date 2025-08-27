@@ -152,11 +152,11 @@ class _AccountPageState extends State<AccountPage> {
                             child: CircleAvatar(
                               radius: 25.r,
                               backgroundColor: white,
-                              child: Icon(
-                                size: 15.w,
-                                Icons.calendar_month,
-                                color: secondaryPurple,
-                              ),
+                              child:  Image.asset(
+                            "assets/calendar.png",
+                            scale: 12,
+                            color:secondaryPurple,
+                          ),
                             ),
                           ),
                           SizedBox(
@@ -245,10 +245,11 @@ class _AccountPageState extends State<AccountPage> {
                             child: CircleAvatar(
                               radius: 25.r,
                               backgroundColor: white,
-                              child: Icon(
-                                Icons.payment,
-                                color: secondaryPurple,
-                              ),
+                              child: Image.asset(
+                            "assets/credit-card.png",
+                            scale: 20,
+                            color: secondaryPurple
+                          ),
                             ),
                           ),
                           SizedBox(

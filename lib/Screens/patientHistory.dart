@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:topline/Constants/Models/patientHistoryModel.dart';
 import 'package:topline/Constants/apis.dart';
 import 'package:topline/Constants/colors.dart';
+import 'package:topline/Constants/helperFunctions.dart';
 import 'package:topline/Constants/routes.dart';
 import 'package:topline/Screens/treatmentList.dart';
 import 'package:topline/providers/authentication_provider.dart';
@@ -152,12 +153,12 @@ class _PatientRecordState extends State<PatientRecord> {
                         Navigator.pushReplacementNamed(
                             context, AppRoutes.appointments);
                       },
-                      child:  CircleAvatar(
+                      child: CircleAvatar(
                         radius: 25.r,
                         backgroundColor: secondaryPurple,
-                        child: Icon(
-                          size: 15.w,
-                          Icons.calendar_month,
+                        child: Image.asset(
+                          "assets/calendar.png",
+                          scale: 12,
                           color: Colors.white,
                         ),
                       ),
@@ -187,7 +188,7 @@ class _PatientRecordState extends State<PatientRecord> {
                       SizedBox(
                         height: screenHeight * 0.01,
                       ),
-                       Text("Treatments",
+                      Text("Treatments",
                           style: TextStyle(
                               color: secondarylightPurple,
                               fontSize: screenHeight * 0.015,
@@ -232,13 +233,13 @@ class _PatientRecordState extends State<PatientRecord> {
                           Navigator.pushReplacementNamed(
                               context, AppRoutes.billingData);
                         },
-                        child:  CircleAvatar(
+                        child: CircleAvatar(
                           radius: 25.r,
                           backgroundColor: secondaryPurple,
-                          child: Icon(
-                            size: 15.w,
-                            Icons.payment,
-                            color: Colors.white,
+                          child: Image.asset(
+                            "assets/credit-card.png",
+                            scale: 20,
+                            color: white,
                           ),
                         ),
                       ),
@@ -324,11 +325,11 @@ class ReportListView extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     //final screenWidth = MediaQuery.of(context).size.width;
-    // Sort the obj list by createdDate in descending order
+    
     List<RecentTreatmentData> sortedObj =
-        List.from(obj); // Create a copy of the list
+        List.from(obj); 
     sortedObj.sort((a, b) => DateTime.parse(b.createdDate.toString()).compareTo(
-        DateTime.parse(a.createdDate.toString()))); // Sort by createdDate
+        DateTime.parse(a.createdDate.toString())));
     if (sortedObj.isEmpty) {
       return Center(
         child: Column(
@@ -382,99 +383,102 @@ class ReportListView extends StatelessWidget {
 
         String formattedEndTime =
             '${endHour.toString().padLeft(2, '0')}:${endTime.minute.toString().padLeft(2, '0')} $endPeriod';
-
+        bool _ispast=endTime.isBefore(DateTime.now());
         return Container(
-          height: .14.sh,
-          margin: const EdgeInsets.only(left: 15, right: 15),
-          child: // Refactored Card with Left Accent
-Card(
-  elevation: 5,
-  shape: RoundedRectangleBorder(
-    borderRadius: BorderRadius.circular(12),
-  ),
-  child: InkWell(
-    onTap: () {
-      // Your original navigation logic
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => AccordionExample(
-            idData: sortedObj[index].id,
-          ),
-        ),
-      );
-    },
-    child: Row(
-      children: [
-        // The prominent left-side accent bar.
-        // The color can be changed based on the appointment status.
-        Container(
-          width: 10.w,
-          height: screenHeight.h, // Adjust the height as needed.
-          
-          decoration: const BoxDecoration(
-            color:primarylightPurple,
-            // color: sortedObj[index]. ? Colors.green : Colors.blue, // Example logic for accent color
-            borderRadius:  BorderRadius.only(
-              topLeft: Radius.circular(12),
-              bottomLeft: Radius.circular(12),
-            ),
-          ),
-        ),
-        // The main content area.
-        Expanded(
-          child: Padding(
-            padding:  EdgeInsets.symmetric(horizontal: 16.0, vertical: 7.h),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "${sortedObj[index].doctorName}",
-                  style: TextStyle(
-                    color: primaryPurple,
-                    fontSize: 15.sp,
-                    fontWeight: FontWeight.bold,
-                  ),
+            height: .15.sh,
+            margin: const EdgeInsets.only(left: 15, right: 15),
+            child: // Refactored Card with Left Accent
+                Card(shadowColor: secondaryPurple,
+              elevation: 5,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: InkWell(
+                onTap: () {
+                  _ispast?
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AccordionExample(
+                        idData: sortedObj[index].id,
+                      ),
+                    ),
+                  ):DialogHelper.showCustomAlertDialog(context, "Your Appoinment is not Done", "assets/no-data.gif");
+                },
+                child: Row(
+                  children: [
+                    
+                    Container(
+                      width: 10.w,
+                      height: screenHeight.h, 
+
+                      decoration:  BoxDecoration(
+                        //color: primarylightPurple,
+                        color: _ispast ? green: blue,
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(12),
+                          bottomLeft: Radius.circular(12),
+                        ),
+                      ),
+                    ),
+                    // The main content area.
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 18.0.w, vertical: 15.h),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "${sortedObj[index].doctorName}",
+                              style: TextStyle(
+                                color: primaryPurple,
+                                fontSize: screenHeight*0.018,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(height: 3.h),
+                            Text(
+                              formattedDate,
+                              style: TextStyle(
+                                color: Colors.black38,
+                                fontSize: screenHeight * 0.015,
+                              ),
+                            ),
+                            SizedBox(height: 3.h),
+                            Text(
+                              "Start Time: $formattedTime",
+                              style: TextStyle(
+                                color: green,
+                                fontSize: screenHeight * 0.015,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(height: 3.h),
+                            Text(
+                              "End Time: $formattedEndTime",
+                              style: TextStyle(
+                                color: dred,
+                                fontSize: screenHeight * 0.015,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(right: 20.w),
+                      child: Icon(
+                        Icons.arrow_circle_right_outlined,
+                        color: primarylightPurple,
+                        size: 30.h,
+                      ),
+                    )
+                  ],
                 ),
-                 SizedBox(height: 3.h),
-                Text(
-                  formattedDate,
-                  style: TextStyle(
-                    color: Colors.black38,
-                    fontSize: screenHeight * 0.015,
-                  ),
-                ),
-                 SizedBox(height: 3.h),
-                Text(
-                  "Start Time: $formattedTime",
-                  style: TextStyle(
-                    color: green,
-                    fontSize: screenHeight * 0.015,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                 SizedBox(height: 3.h),
-                Text(
-                  "End Time: $formattedEndTime",
-                  style: TextStyle(
-                    color: dred,
-                    fontSize: screenHeight * 0.015,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-        Padding(
-          padding:  EdgeInsets.only(right:20.w),
-          child:  Icon(Icons.arrow_circle_right_outlined,color: primarylightPurple,size: 30.h,),
-        )
-      ],
-    ),
-  ),
-)
-        );
+              ),
+            ));
       },
     );
   }
