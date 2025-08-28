@@ -336,6 +336,7 @@ class _SignupPageState extends State<SignupPage> {
                             const Text('Do you have an account?'),
                             TextButton(
                                 onPressed: () {
+                                  _clearFields();
                                   Navigator.pushReplacementNamed(
                                       context, AppRoutes.login);
                                 },
@@ -406,6 +407,15 @@ class _SignupPageState extends State<SignupPage> {
     ScaffoldMessenger.of(context)
         .showSnackBar(SnackBar(content: Text(message)));
   }
+  void _clearFields() {
+  patientNameController.clear();
+  emiratesIdController.clear();
+  mobileNumberController.clear();
+  emailController.clear();
+  usernameController.clear();
+  passwordController.clear();
+  confirmPasswordController.clear();
+}
 
   // Submit Registration
   void _submitRegistration() async {
@@ -443,7 +453,7 @@ class _SignupPageState extends State<SignupPage> {
           'Registration Successful',
           "assets/success.gif",
           onConfirm: () {
-            //_clearFields();
+            _clearFields();
             if (!mounted) return;
             Navigator.pushReplacementNamed(context, AppRoutes.login);
           },
@@ -461,7 +471,7 @@ class _SignupPageState extends State<SignupPage> {
       case 'emirates_id_error':
         DialogHelper.showCustomAlertDialog(
           context,
-          'Your Emirates ID is not registered. Contact your clinic',
+          'Your Emirates ID is not registered with Tablet EMR. Contact your clinic',
           "assets/error.gif",
         );
         break;
