@@ -10,8 +10,6 @@ import 'package:topline/Screens/doctorsList.dart';
 import 'package:topline/Screens/home.dart';
 import 'package:topline/Screens/labReport.dart';
 import 'package:topline/Screens/patientHistory.dart';
-import 'package:topline/Screens/slotsPage.dart';
-
 import 'package:topline/Screens/splash.dart';
 
 class AppRoutes {

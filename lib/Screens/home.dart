@@ -206,7 +206,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Image.asset(
                   'assets/medical-team.png',
-                  scale: 4.r,
+                  scale: 6.r,
                 )
               ],
             ),
