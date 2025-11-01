@@ -386,7 +386,7 @@ class _BillingListState extends State<BillingList> {
                   DateTime.parse(sortedObj[index].invoiceDate.toString());
               String formattedDate =
                   "${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
-                  const aedSymbol = 'د.إ'; 
+                  //const aedSymbol = 'د.إ'; 
               return Container(
                 
                 margin: const EdgeInsets.only(left: 15, right: 15),
